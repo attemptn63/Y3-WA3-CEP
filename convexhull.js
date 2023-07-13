@@ -28,6 +28,7 @@ function convexhull(){
         }
     }
     hull.push(p_0);
+    points.unshift(p_0);
     hull.shift();
     return hull;
 }

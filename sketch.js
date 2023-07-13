@@ -68,7 +68,7 @@ function draw(){
         textSize(32);
         textAlign(CENTER,CENTER);
         if(mode == "hull"){
-            text(i+1,points[i].x,points[i].y);
+            text(i,points[i].x,points[i].y);
         }
     }
 }
@@ -80,11 +80,9 @@ function mousePressed(){
 }
 function drawHull(hull_loop, percentage){
     var dist = line_start.dist(line_end);
-    var start = hull[hull_loop].copy();
-    start.lerp(line_end.copy(), 31/dist);
+    var start = line_start.copy();
     var anim_end = start.copy();
-    var end = hull[hull_loop+1].copy();
-    end.lerp(line_start.copy(), 31/dist);
+    var end = line_end.copy();
     anim_end.lerp(end, percentage);
     push();
     strokeCap(SQUARE);
