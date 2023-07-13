@@ -21,6 +21,14 @@ function createButtons(){
     resetbutton.locate(200, 0);
     convexhullbutton.locate(300, 0);
     editbutton.onPress = function(){
+        if(mode == "hull" || mode == "index"){
+            background(255);
+            points = [];
+            hull = [];
+            i_loop = 0;
+            percentage = 0;
+            undraw = 0;
+        }
         mode = "edit";
     }
     cancelbutton.onPress = function(){
@@ -112,7 +120,7 @@ function draw(){
         for(var i = 0; i <= i_loop; i++){
             push();
                 stroke("#ce9102");
-                noFill();
+                fill(255);
                 circle(points[hull[i]].x,points[hull[i]].y,60);
                 fill("#ce9102");
                 textSize(32);
