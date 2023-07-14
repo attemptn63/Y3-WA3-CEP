@@ -1,8 +1,8 @@
 var editbutton,mode,cancelbutton,resetbutton,convexhullbutton;
-var points = [],hull = [];
+var points = [],hull = [], hulllines = [];
 var startframe = 0, endframe = 0;
 var i_loop = 0, percentage = 0;
-var line_start, line_end, undraw;
+var line_start, line_end, undraw, indexed;
 function setup(){
     createCanvas(windowWidth, windowHeight);
     background(255);
@@ -28,6 +28,7 @@ function createButtons(){
             i_loop = 0;
             percentage = 0;
             undraw = 0;
+            indexed = false;
         }
         mode = "edit";
     }
@@ -40,15 +41,18 @@ function createButtons(){
         background(255);
         points = [];
         hull = [];
+        hulllines = [];
         i_loop = 0;
         percentage = 0;
         undraw = 0;
+        indexed = false;
     }
     convexhullbutton.onPress = function(){
         if(mode != "hull" && mode != "index" && points.length > 2){
             hull = convexhull(points);
             mode = "index";
             i_loop = 1;
+            console.log(hulllines);
         }
     }
     editbutton.text = "Edit";
@@ -65,6 +69,7 @@ function draw(){
         if(percentage >= 1.05){
             if(undraw && i_loop == points.length - 1){
                 mode = "hull";
+                indexed = true;
                 percentage = 0;
                 i_loop = 0;
                 return;
@@ -98,18 +103,28 @@ function draw(){
             }
         }
     }
-    if(mode == "hull" && i_loop < hull.length - 1){
+    if(mode == "hull" && i_loop < hulllines.length){
         if(percentage >= 1.05){
-            i_loop++;
-            if(i_loop == hull.length - 1){
+            if(i_loop == hulllines.length - 1){
+                i_loop = 0;
                 percentage = 0;
+                mode = "view";
                 return;
             }
+            i_loop++;
             percentage = 0;
         }
-        line_start = points[hull[i_loop]].copy();
-        line_end = points[hull[i_loop+1]].copy();
-        drawLine(percentage, "#ce9102");
+        for(var i = 0; i < i_loop; i++){
+            push();
+            stroke(hulllines[i].color);
+            strokeCap(SQUARE);
+            strokeWeight(hulllines[i].strokeSize);
+            line(hulllines[i].x1,hulllines[i].y1,hulllines[i].x2,hulllines[i].y2);
+            pop();
+        }
+        line_start = createVector(hulllines[i_loop].x1,hulllines[i_loop].y1);
+        line_end = createVector(hulllines[i_loop].x2,hulllines[i_loop].y2);
+        drawLine(percentage, hulllines[i_loop].color, hulllines[i_loop].strokeSize);
         percentage += 0.05;
         for(var i = 0; i < points.length; i++){
             circle(points[i].x,points[i].y,60);
@@ -117,21 +132,15 @@ function draw(){
             textAlign(CENTER,CENTER);
             text(i,points[i].x,points[i].y);
         }
-        for(var i = 0; i <= i_loop; i++){
-            push();
-                stroke("#ce9102");
-                fill(255);
-                circle(points[hull[i]].x,points[hull[i]].y,60);
-                fill("#ce9102");
-                textSize(32);
-                textAlign(CENTER,CENTER);
-                text(hull[i],points[hull[i]].x,points[hull[i]].y);
-            pop();
-        }
     }
     if(mode == "edit" || mode == "view"){
         for(var i = 0; i < points.length; i++){
             circle(points[i].x,points[i].y,60);
+            if(indexed){
+                textSize(32);
+                textAlign(CENTER,CENTER);
+                text(i,points[i].x,points[i].y);
+            }
         }
     }
 }
