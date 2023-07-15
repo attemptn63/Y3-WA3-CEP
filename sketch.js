@@ -1,64 +1,12 @@
-var editbutton,mode,cancelbutton,resetbutton,convexhullbutton;
 var points = [],hull = [], hulllines = [];
 var startframe = 0, endframe = 0;
 var i_loop = 0, percentage = 0;
-var line_start, line_end, undraw, indexed;
+var line_start, line_end, undraw, indexed, hulled;
 function setup(){
     createCanvas(windowWidth, windowHeight);
     background(255);
     frameRate(60);
     createButtons();
-}
-
-function createButtons(){
-    mode = "view";
-    editbutton = new Clickable(100,100);
-    cancelbutton = new Clickable(100,100);
-    resetbutton = new Clickable(100,100);
-    convexhullbutton = new Clickable(100,100);
-    editbutton.locate(0, 0);
-    cancelbutton.locate(100, 0);
-    resetbutton.locate(200, 0);
-    convexhullbutton.locate(300, 0);
-    editbutton.onPress = function(){
-        if(mode == "hull" || mode == "index"){
-            background(255);
-            points = [];
-            hull = [];
-            i_loop = 0;
-            percentage = 0;
-            undraw = 0;
-            indexed = false;
-        }
-        mode = "edit";
-    }
-    cancelbutton.onPress = function(){
-        if(mode == "edit"){
-            mode = "view";
-        }
-    }
-    resetbutton.onPress = function(){
-        background(255);
-        points = [];
-        hull = [];
-        hulllines = [];
-        i_loop = 0;
-        percentage = 0;
-        undraw = 0;
-        indexed = false;
-    }
-    convexhullbutton.onPress = function(){
-        if(mode != "hull" && mode != "index" && points.length > 2){
-            hull = convexhull(points);
-            mode = "index";
-            i_loop = 1;
-            console.log(hulllines);
-        }
-    }
-    editbutton.text = "Edit";
-    cancelbutton.text = "Cancel";
-    resetbutton.text = "Reset";
-    convexhullbutton.text = "Hull";
 }
 function draw(){
     editbutton.draw();
@@ -109,6 +57,7 @@ function draw(){
                 i_loop = 0;
                 percentage = 0;
                 mode = "view";
+                hulled = true;
                 return;
             }
             i_loop++;
@@ -133,14 +82,41 @@ function draw(){
             text(i,points[i].x,points[i].y);
         }
     }
+    if(mode == "view" && hulled == true){
+        for(var i = 0; i < hull.length-1; i++){
+            push();
+            stroke("#c1a61d");
+            strokeCap(SQUARE);
+            strokeWeight(5);
+            line(points[hull[i]].x,points[hull[i]].y,points[hull[i+1]].x,points[hull[i+1]].y);
+            pop();
+        }
+    }
     if(mode == "edit" || mode == "view"){
         for(var i = 0; i < points.length; i++){
             circle(points[i].x,points[i].y,60);
             if(indexed){
+                push();
+                noStroke();
                 textSize(32);
                 textAlign(CENTER,CENTER);
                 text(i,points[i].x,points[i].y);
+                pop();
             }
+        }
+    }
+    if(mode == "view" && hulled == true){
+        for(var i = 0;i < hull.length; i++){
+            push();
+            stroke("#c1a61d");
+            strokeWeight(5);
+            circle(points[hull[i]].x,points[hull[i]].y,60);
+            noStroke();
+            fill("black");
+            textSize(32);
+            textAlign(CENTER,CENTER);
+            text(hull[i],points[hull[i]].x,points[hull[i]].y);
+            pop();
         }
     }
 }

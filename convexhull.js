@@ -21,7 +21,7 @@ function convexhull(){
         angle_b = atan2(-(b.y-p_0.y),b.x-p_0.x);
         return angle_a-angle_b;
     });
-    points.unshift(p_0);
+    points.unshift(p_0.copy());
     hull.push(points.length-1);
     hull.push(0);
     hull.push(1);
