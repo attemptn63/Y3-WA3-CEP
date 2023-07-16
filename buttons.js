@@ -2,13 +2,11 @@ var editbutton,mode,cancelbutton,resetbutton,convexhullbutton;
 function createButtons(){
     mode = "view";
     editbutton = new Clickable(100,100);
-    cancelbutton = new Clickable(100,100);
     resetbutton = new Clickable(100,100);
     convexhullbutton = new Clickable(100,100);
     editbutton.locate(0, 0);
-    cancelbutton.locate(100, 0);
-    resetbutton.locate(200, 0);
-    convexhullbutton.locate(300, 0);
+    resetbutton.locate(100, 0);
+    convexhullbutton.locate(200, 0);
     editbutton.onPress = function(){
         if(mode == "hull" || mode == "index" || indexed || hulled){
             background(255);
@@ -21,11 +19,9 @@ function createButtons(){
             hulled = false;
         }
         mode = "edit";
-    }
-    cancelbutton.onPress = function(){
-        if(mode == "edit"){
-            mode = "view";
-        }
+        editbutton.stroke = "#cea716";
+        resetbutton.stroke = "#000000";
+        convexhullbutton.stroke = "#000000";
     }
     resetbutton.onPress = function(){
         background(255);
@@ -44,9 +40,11 @@ function createButtons(){
             mode = "index";
             i_loop = 1;
         }
+        editbutton.stroke = "#000000";
+        resetbutton.stroke = "#000000";
+        convexhullbutton.stroke = "#cea716";
     }
     editbutton.text = "Edit";
-    cancelbutton.text = "Cancel";
     resetbutton.text = "Reset";
     convexhullbutton.text = "Hull";
 }

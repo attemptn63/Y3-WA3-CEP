@@ -10,7 +10,6 @@ function setup(){
 }
 function draw(){
     editbutton.draw();
-    cancelbutton.draw();
     resetbutton.draw();
     convexhullbutton.draw();
     if(mode == "index"){
@@ -64,7 +63,7 @@ function mousePressed(){
     }
 }
 function bounded(){
-    if((mouseX > 400 || mouseY > 100) && (mouseX < width - 30 && mouseX > 30) && (mouseY < height - 30 && mouseY > 30)){
+    if((mouseX > 330 || mouseY > 130) && (mouseX < width - 30 && mouseX > 30) && (mouseY < height - 30 && mouseY > 30)){
         return true;
     }
     return false;

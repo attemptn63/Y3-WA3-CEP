@@ -4,6 +4,7 @@ function drawhull(){
             i_loop = 0;
             percentage = 0;
             mode = "view";
+            convexhullbutton.stroke = "#000000";
             hulled = true;
             return;
         }
