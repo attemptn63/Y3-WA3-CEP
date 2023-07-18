@@ -2,16 +2,28 @@ var points = [],hull = [], hulllines = [];
 var startframe = 0, endframe = 0;
 var i_loop = 0, percentage = 0;
 var line_start, line_end, undraw, indexed, hulled;
+
+function preload(){
+    simul_info = loadStrings("simulation_info.txt");
+    usage_info = loadStrings("usage_info.txt");
+}
 function setup(){
     createCanvas(windowWidth, windowHeight);
     background(255);
     frameRate(60);
     createButtons();
+    simul_info = simul_info[0];
+    usage_info = usage_info[0];
+    simul_info = simul_info.replace(/\\n/g,"\n");
+    usage_info = usage_info.replace(/\\n/g,"\n");
 }
 function draw(){
     editbutton.draw();
     resetbutton.draw();
     convexhullbutton.draw();
+    if(mode == "guide"){
+        guide();
+    }
     if(mode == "index"){
         index();
     }

@@ -1,0 +1,1 @@
+Press the "Edit" button to start creating points on the screen\nPress the "Hull" button for a visualisation of Graham Scan\nPress the "Reset" button to clear the screen
