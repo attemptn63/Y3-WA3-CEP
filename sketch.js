@@ -21,10 +21,13 @@ function draw(){
     editbutton.draw();
     resetbutton.draw();
     convexhullbutton.draw();
+    createBlocks();
     if(mode == "guide"){
         guide();
     }
     if(mode == "index"){
+        BlockList[0].blockColor = "#c1a61d";
+        BlockList[0].textColor = "white";
         index();
     }
     if(mode == "hull" && i_loop < hulllines.length){
@@ -67,6 +70,9 @@ function draw(){
             pop();
         }
     }
+    if(mode != "guide"){
+        drawBlocks();
+    }
 }
 
 function mousePressed(){
@@ -75,7 +81,7 @@ function mousePressed(){
     }
 }
 function bounded(){
-    if((mouseX > 330 || mouseY > 130) && (mouseX < width - 30 && mouseX > 30) && (mouseY < height - 30 && mouseY > 30)){
+    if((mouseX > 330 || mouseY > 130) && (mouseX < width - 30 && mouseX > 30) && (mouseY < height - 30 && mouseY > 30) && (mouseX < 930 || mouseY < 630)){
         return true;
     }
     return false;

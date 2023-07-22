@@ -19,6 +19,8 @@ function drawhull(){
         line(hulllines[i].x1,hulllines[i].y1,hulllines[i].x2,hulllines[i].y2);
         pop();
     }
+    BlockList[hulllines[i].codeLine].blockColor = "#c1a61d";
+    BlockList[hulllines[i].codeLine].textColor = "white";
     line_start = createVector(hulllines[i_loop].x1,hulllines[i_loop].y1);
     line_end = createVector(hulllines[i_loop].x2,hulllines[i_loop].y2);
     drawLine(percentage, hulllines[i_loop].color, hulllines[i_loop].strokeSize);
