@@ -25,9 +25,12 @@ function createButtons(){
             hulled = false;
         }
         mode = "edit";
-        editbutton.stroke = "#cea716";
+        editbutton.stroke = "#7c7127";
+        editbutton.strokeWeight = 4;
         resetbutton.stroke = "#000000";
+        resetbutton.strokeWeight = 2;
         convexhullbutton.stroke = "#000000";
+        convexhullbutton.strokeWeight = 2;
     }
     resetbutton.onPress = function(){
         if(mode == "guide")return;
@@ -49,8 +52,11 @@ function createButtons(){
             i_loop = 1;
         }
         editbutton.stroke = "#000000";
+        editbutton.strokeWeight = 2;
         resetbutton.stroke = "#000000";
-        convexhullbutton.stroke = "#cea716";
+        resetbutton.strokeWeight = 2;
+        convexhullbutton.stroke = "#7c7127";
+        convexhullbutton.strokeWeight = 4;
     }
     exitbutton.onPress = function(){
         mode = "view";
