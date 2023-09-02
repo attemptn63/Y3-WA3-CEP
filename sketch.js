@@ -2,11 +2,9 @@ var points = [],hull = [], hulllines = [];
 var startframe = 0, endframe = 0;
 var i_loop = 0, percentage = 0;
 var line_start, line_end, undraw, indexed, hulled;
-var font;
 function preload(){
     simul_info = loadStrings("simulation_info.txt");
     usage_info = loadStrings("usage_info.txt");
-    font = loadFont("ARIAL.TTF");
 }
 function setup(){
     createCanvas(windowWidth, windowHeight);
