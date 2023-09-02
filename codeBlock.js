@@ -23,12 +23,12 @@ class codeBlocks{
 }
 function createBlocks(){
     BlockList = [];
-    BlockList.push(new codeBlocks(900,450,500,50,"indexing...","black","white"));
-    BlockList.push(new codeBlocks(900,500,500,50,"push P[N-1], P[0] and P[1] into stack S","black","white"));
-    BlockList.push(new codeBlocks(900,550,500,50,"for i = 2 to N-1","black","white"));
-    BlockList.push(new codeBlocks(900,600,500,50,"    if (ccw(S[S.length-2],S[S.length-1],P[i]) > 0)","black","white"));
-    BlockList.push(new codeBlocks(900,650,500,50,"        push P[i] into stack S","black","white"));
-    BlockList.push(new codeBlocks(900,700,500,50,"    else pop from S","black","white"));
+    BlockList.push(new codeBlocks(windowWidth - 500,windowHeight - 300,500,50,"indexing...","black","white"));
+    BlockList.push(new codeBlocks(windowWidth - 500,windowHeight - 250,500,50,"push P[N-1], P[0] and P[1] into stack S","black","white"));
+    BlockList.push(new codeBlocks(windowWidth - 500,windowHeight - 200,500,50,"for i = 2 to N-1","black","white"));
+    BlockList.push(new codeBlocks(windowWidth - 500,windowHeight - 150,500,50,"    if (ccw(S[S.length-2],S[S.length-1],P[i]) > 0)","black","white"));
+    BlockList.push(new codeBlocks(windowWidth - 500,windowHeight - 100,500,50,"        push P[i] into stack S","black","white"));
+    BlockList.push(new codeBlocks(windowWidth - 500,windowHeight - 50,500,50,"    else pop from S","black","white"));
 }
 function drawBlocks(){
     for(var i = 0; i < BlockList.length; i++){
