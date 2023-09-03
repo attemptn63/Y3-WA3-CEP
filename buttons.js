@@ -1,5 +1,8 @@
+//contains all the buttons and their functions
 var editbutton,mode = "guide",cancelbutton,resetbutton,convexhullbutton,exitbutton,nextbutton;
 function createButtons(){
+    //create the buttons (see clickable.js for more information)
+    //there's so many things to set with the buttons :(
     editbutton = new Clickable();
     resetbutton = new Clickable();
     convexhullbutton = new Clickable();
@@ -13,6 +16,8 @@ function createButtons(){
     nextbutton.locate(windowWidth-100,windowHeight-50);
     exitbutton.cornerRadius = 4;
     editbutton.onPress = function(){
+        //go to edit mode if not in edit mode
+        //if you are halfway through indexing or drawing the convex hull, reset the variables
         if(mode == "guide")return;
         if(mode == "hull" || mode == "index" || indexed || hulled){
             background(255);
@@ -24,6 +29,7 @@ function createButtons(){
             indexed = false;
             hulled = false;
         }
+        //set the mode to edit and change the button colors
         mode = "edit";
         editbutton.stroke = "#7c7127";
         editbutton.strokeWeight = 4;
@@ -33,6 +39,7 @@ function createButtons(){
         convexhullbutton.strokeWeight = 2;
     }
     resetbutton.onPress = function(){
+        //reset the variables and clear the screen
         if(mode == "guide")return;
         background(255);
         points = [];
@@ -45,6 +52,7 @@ function createButtons(){
         hulled = false;
     }
     convexhullbutton.onPress = function(){
+        //start drawing the convex hull
         if(mode == "guide")return;
         if(mode != "hull" && mode != "index" && points.length > 2 && !indexed && !hulled){
             hull = convexhull(points);
@@ -59,10 +67,12 @@ function createButtons(){
         convexhullbutton.strokeWeight = 4;
     }
     exitbutton.onPress = function(){
+        //exit the guide mode
         mode = "view";
         background(255);
     }
     nextbutton.onPress = function(){
+        //move to the next slide in the guide
         if(slide == 0){
             slide = 1;
         }
