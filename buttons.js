@@ -23,6 +23,7 @@ function createButtons(){
             background(255);
             points = [];
             hull = [];
+            hulllines = [];
             i_loop = 0;
             percentage = 0;
             undraw = 0;
